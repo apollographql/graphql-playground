@@ -8,7 +8,7 @@
 
 import * as React from 'react'
 import ExecuteButtonOperation from './ExecuteButtonOperation'
-import { withProps, styled } from '../../styled'
+import { styled } from '../../styled'
 import { connect } from 'react-redux'
 import { runQuery, stopQuery } from '../../state/sessions/actions'
 import { createStructuredSelector } from 'reselect'
@@ -59,18 +59,20 @@ class ExecuteButton extends React.Component<ReduxProps, State> {
     if (hasOptions && optionsOpen) {
       const highlight = this.state.highlight
       options = (
-        <ExecuteOptions>
-          {operations.map(operation => (
-            <ExecuteButtonOperation
-              operation={operation}
-              onMouseOver={this.handleMouseOver}
-              onMouseOut={this.handleMouseOut}
-              onMouseUp={this.handleMouseUp}
-              highlight={highlight}
-              key={operation.name ? operation.name.value : '*'}
-            />
-          ))}
-        </ExecuteOptions>
+        <ExecuteBox>
+          <ExecuteOptions>
+            {operations.map(operation => (
+              <ExecuteButtonOperation
+                operation={operation}
+                onMouseOver={this.handleMouseOver}
+                onMouseOut={this.handleMouseOut}
+                onMouseUp={this.handleMouseUp}
+                highlight={highlight}
+                key={operation.name ? operation.name.value : '*'}
+              />
+            ))}
+          </ExecuteOptions>
+        </ExecuteBox>
       )
     }
 
@@ -202,7 +204,7 @@ interface ButtonProps {
   isRunning: boolean
 }
 
-const Button = withProps<ButtonProps>()(styled.div)`
+const Button = styled<ButtonProps, 'div'>('div')`
   width: 60px;
   height: 60px;
 
@@ -224,19 +226,19 @@ const Button = withProps<ButtonProps>()(styled.div)`
   }
 
   &:hover {
-    background-color:${p =>
+    background-color: ${p =>
       p.isRunning
         ? p.theme.editorColours.executeButtonSubscriptionHover
         : p.theme.editorColours.executeButtonHover};
   }
 `
 
-const ExecuteOptions = styled.ul`
+const ExecuteBox = styled.div`
   background: #fff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 8px 0;
   left: -1px;
   margin: 0;
-  padding: 8px 0;
   position: absolute;
   top: 78px;
   z-index: 100;
@@ -251,6 +253,11 @@ const ExecuteOptions = styled.ul`
     width: 8px;
     height: 8px;
   }
+`
+
+const ExecuteOptions = styled.ul`
+  max-height: 270px;
+  overflow: scroll;
 
   li {
     cursor: pointer;

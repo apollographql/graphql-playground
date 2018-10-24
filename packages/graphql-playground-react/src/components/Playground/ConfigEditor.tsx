@@ -127,7 +127,7 @@ export class ConfigEditor extends React.Component<Props, {}> {
   render() {
     return (
       <EditorWrapper>
-        <Editor innerRef={this.setNode} />
+        <Editor ref={this.setNode} />
       </EditorWrapper>
     )
   }
@@ -177,4 +177,7 @@ const Editor = styled.div`
   flex: 1;
   height: 100%;
   position: relative;
+  .CodeMirror-linenumbers {
+    background: ${p => p.theme.editorColours.resultBackground};
+  }
 `

@@ -1,8 +1,8 @@
 import * as React from 'react'
-import Icon from 'graphcool-styles/dist/components/Icon/Icon'
+import { SettingsIcon, CrossIcon } from '../Icons'
 import { connect } from 'react-redux'
 import { closeTab, selectTab, editName } from '../../state/sessions/actions'
-import { styled, withProps } from '../../styled'
+import { styled } from '../../styled'
 import { Session } from '../../state/sessions/reducers'
 import AutosizeInput from 'react-input-autosize'
 
@@ -45,19 +45,14 @@ class Tab extends React.PureComponent<Props & ReduxProps, State> {
       'New Tab'
 
     return (
-      <TabItem active={active} onClick={this.handleSelectSession}>
+      <TabItem active={active} onMouseDown={this.handleSelectSession}>
         <Icons active={active}>
           {session.subscriptionActive && <RedDot />}
           <QueryTypes>
             {queryTypes.query && <Query>Q</Query>}
             {(session.isSettingsTab || session.isConfigTab) && (
               <Query>
-                <Icon
-                  src={require('graphcool-styles/icons/fill/settings.svg')}
-                  width={12}
-                  height={12}
-                  color="white"
-                />
+                <SettingsIcon width={12} height={12} fill="white" />
               </Query>
             )}
             {queryTypes.mutation && <Mutation>M</Mutation>}
@@ -66,7 +61,7 @@ class Tab extends React.PureComponent<Props & ReduxProps, State> {
         </Icons>
         {this.state.editingName ? (
           <OperationNameInput
-            value={session.name}
+            value={session.name || ''}
             onChange={this.handleEditName}
             onBlur={this.stopEditName}
             onKeyDown={this.handleKeyDown}
@@ -88,12 +83,11 @@ class Tab extends React.PureComponent<Props & ReduxProps, State> {
           {session.isFile && session.changed && !this.state.overCross ? (
             <Circle>⬤</Circle>
           ) : (
-            <Icon
-              src={require('graphcool-styles/icons/stroke/cross.svg')}
-              stroke={true}
+            <CrossIcon
               width={12}
               height={11}
               strokeWidth={7}
+              title="Close Tab"
             />
           )}
         </Close>
@@ -147,23 +141,22 @@ interface TabItemProps {
   hasCircle?: boolean
 }
 
-const TabItem = withProps<TabItemProps>()(styled.div)`
+const TabItem = styled<TabItemProps, 'div'>('div')`
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   height: 43px;
   padding: 10px;
   padding-top: 9px;
-  margin-left: 10px;
+  margin-right: 10px;
   font-size: 14px;
   border-radius: 2px;
   border-bottom: 2px solid ${p => p.theme.editorColours.navigationBar};
   box-sizing: border-box;
   cursor: pointer;
+  user-select: none;
   background: ${p =>
     p.active ? p.theme.editorColours.tab : p.theme.editorColours.tabInactive};
-  &:first-child {
-    margin-left: 0;
-  }
   &:hover {
     background: ${p => p.theme.editorColours.tab};
     .close {
@@ -172,7 +165,7 @@ const TabItem = withProps<TabItemProps>()(styled.div)`
   }
 `
 
-const OperationName = withProps<TabItemProps>()(styled.div)`
+const OperationName = styled<TabItemProps, 'div'>('div')`
   opacity: ${p => (p.active ? 1 : 0.5)};
   background: transparent;
   color: ${p => p.theme.editorColours.tabText};
@@ -193,7 +186,7 @@ const OperationNameInput = styled(AutosizeInput)`
   }
 `
 
-const Icons = withProps<TabItemProps>()(styled.div)`
+const Icons = styled<TabItemProps, 'div'>('div')`
   display: flex;
   align-items: center;
   opacity: ${p => (p.active ? 1 : 0.5)};
@@ -201,6 +194,7 @@ const Icons = withProps<TabItemProps>()(styled.div)`
 
 const QueryTypes = styled.div`
   display: flex;
+  color: white;
 `
 
 const QueryType = styled.div`
@@ -216,15 +210,15 @@ const QueryType = styled.div`
 `
 
 const Query = styled(QueryType)`
-  background: rgba(42, 126, 210, 1);
+  background: ${p => p.theme.colours.blue};
 `
 
 const Mutation = styled(QueryType)`
-  background: rgba(241, 143, 1, 1);
+  background: ${p => p.theme.colours.orange};
 `
 
 const Subscription = styled(QueryType)`
-  background: rgba(164, 3, 111, 1);
+  background: ${p => p.theme.colours.purple};
 `
 
 const RedDot = styled.div`
@@ -242,8 +236,9 @@ const Circle = styled.div`
   background: ${p => p.theme.editorColours.circle};
 `
 
-const Close = withProps<TabItemProps>()(styled.div)`
+const Close = styled<TabItemProps, 'div'>('div')`
   position: relative;
+  display: flex;
   margin-left: 10px;
   top: 1px;
   height: 13px;

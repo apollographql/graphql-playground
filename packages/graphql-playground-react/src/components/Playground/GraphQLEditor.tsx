@@ -199,15 +199,15 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
                   isOpen={this.props.variableEditorOpen}
                   onMouseDown={this.handleVariableResizeStart}
                 >
-                  <VariableEditorSubtitle
-                    isOpen={this.props.queryVariablesActive}
+                  <DrawerTab
+                    isActive={this.props.queryVariablesActive}
                     ref={this.setQueryVariablesRef}
                     onClick={this.props.openQueryVariables}
                   >
                     Query Variables
-                  </VariableEditorSubtitle>
-                  <VariableEditorSubtitle
-                    isOpen={!this.props.queryVariablesActive}
+                  </DrawerTab>
+                  <DrawerTab
+                    isActive={!this.props.queryVariablesActive}
                     ref={this.setHttpHeadersRef}
                     onClick={this.props.closeQueryVariables}
                   >
@@ -215,7 +215,7 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
                       (this.props.headersCount && this.props.headersCount > 0
                         ? `(${this.props.headersCount})`
                         : '')}
-                  </VariableEditorSubtitle>
+                  </DrawerTab>
                 </VariableEditorTitle>
                 {this.props.queryVariablesActive ? (
                   <VariableEditorComponent
@@ -262,20 +262,20 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
                   isOpen={this.props.isExtensionsDrawerOpen}
                   onMouseDown={this.handleExtensionsDrawerResizeStart}
                 >
-                  <ExtensionsDrawerSubtitle
-                    isOpen={this.props.isTracingActive}
+                  <DrawerTab
+                    isActive={this.props.isTracingActive}
                     ref={this.setTracingRef}
                     onClick={this.props.openTracing}
                   >
                     Tracing
-                  </ExtensionsDrawerSubtitle>
-                  <ExtensionsDrawerSubtitle
-                    isOpen={!this.props.isTracingActive}
+                  </DrawerTab>
+                  <DrawerTab
+                    isActive={!this.props.isTracingActive}
                     ref={this.setQueryPlanRef}
                     onClick={this.props.closeTracing}
                   >
                     Query Plan
-                  </ExtensionsDrawerSubtitle>
+                  </DrawerTab>
                 </ExtensionsDrawerTitle>
                 {this.props.isTracingActive ? (
                   <ResponseTracing open={true} />
@@ -704,12 +704,6 @@ interface TitleProps {
 }
 
 const BottomDrawerTitle = styled.div`
-  background: #0b1924;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.53px;
-  line-height: 14px;
-  font-size: 14px;
   padding: 14px 14px 15px 21px;
   user-select: none;
 `
@@ -735,18 +729,6 @@ const VariableEditorTitle = styled<TitleProps>(({ isOpen, ...rest }) => (
   background: ${p => p.theme.editorColours.leftDrawerBackground};
 `
 
-const VariableEditorSubtitle = styled<TitleProps, 'span'>('span')`
-  margin-right: 10px;
-  cursor: pointer;
-  color: ${p =>
-    p.isOpen
-      ? p.theme.editorColours.drawerText
-      : p.theme.editorColours.drawerTextInactive};
-  &:last-child {
-    margin-right: 0;
-  }
-`
-
 const ExtensionsDrawer = styled(BottomDrawer)`
   background: ${p => p.theme.editorColours.rightDrawerBackground};
 `
@@ -760,11 +742,24 @@ const ExtensionsDrawerTitle = styled<TitleProps>(({ isOpen, ...rest }) => (
   color: ${p => p.theme.editorColours.drawerTextInactive};
 `
 
-const ExtensionsDrawerSubtitle = styled<TitleProps, 'span'>('span')`
+interface DrawerTabProps {
+  onClick?: (e: Event) => void
+  onMouseDown?: (e: Event) => void
+  isActive: boolean
+  ref?: any
+}
+const DrawerTab = styled<DrawerTabProps, 'button'>('button')`
+  padding: 0;
   margin-right: 10px;
-  cursor: pointer;
+  background: #0b1924;
+
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.53px;
+  line-height: 14px;
+  font-size: 14px;
   color: ${p =>
-    p.isOpen
+    p.isActive
       ? p.theme.editorColours.drawerText
       : p.theme.editorColours.drawerTextInactive};
   &:last-child {

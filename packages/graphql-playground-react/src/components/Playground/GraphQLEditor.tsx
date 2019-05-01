@@ -145,7 +145,7 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
   private httpHeadersRef
   private containerComponent
   private tracingRef
-  private queryPlannerRef
+  private queryPlanRef
 
   componentDidMount() {
     // Ensure a form of a schema exists (including `null`) and
@@ -271,7 +271,7 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
                   </ExtensionsDrawerSubtitle>
                   <ExtensionsDrawerSubtitle
                     isOpen={!this.props.isTracingActive}
-                    ref={this.setQueryPlannerRef}
+                    ref={this.setQueryPlanRef}
                     onClick={this.props.closeTracing}
                   >
                     Query Plan
@@ -315,8 +315,8 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
     this.httpHeadersRef = ref
   }
 
-  setQueryPlannerRef = ref => {
-    this.queryPlannerRef = ref
+  setQueryPlanRef = ref => {
+    this.queryPlanRef = ref
   }
 
   setTracingRef = ref => {
@@ -501,7 +501,7 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
     if (
       wasOpen &&
       (downEvent.target === this.tracingRef ||
-        downEvent.target === this.queryPlannerRef)
+        downEvent.target === this.queryPlanRef)
     ) {
       return
     }

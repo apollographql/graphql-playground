@@ -129,6 +129,8 @@ function* runQuerySaga(action) {
   }
 
   if (session.isQueryPlanSupported && session.isExtensionsDrawerOpen) {
+    // Breaking the X- header pattern here since it's dated, and not
+    // recommended: https://www.mnot.net/blog/2009/02/18/x-
     headers = set(headers, 'Apollo-Query-Plan-Experimental', '1')
   }
 

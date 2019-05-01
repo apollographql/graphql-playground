@@ -24,6 +24,7 @@ import {
   setQueryTypes,
   refetchSchema,
   fetchSchema,
+  setIsQueryPlanSupported,
 } from './actions'
 import { getRootMap, getNewStack } from '../../components/Playground/util/stack'
 import { DocsSessionState } from '../docs/reducers'
@@ -145,6 +146,7 @@ function* fetchSchemaSaga() {
       schemaFetchingSuccess(
         session.endpoint,
         null,
+        null,
         yield select(getIsPollingSchema),
       ),
     )
@@ -163,6 +165,7 @@ function* refetchSchemaSaga() {
       schemaFetchingSuccess(
         session.endpoint,
         null,
+        null,
         yield select(getIsPollingSchema),
       ),
     )
@@ -180,7 +183,8 @@ function* renewStacks() {
   const fetchSession = yield getSessionWithCredentials()
   const docs: DocsSessionState = yield select(getSessionDocsState)
   const result = yield schemaFetcher.fetch(fetchSession)
-  const { schema, tracingSupported } = result
+  const { schema, tracingSupported, isQueryPlanSupported } = result
+
   if (schema && (!lastSchema || lastSchema !== schema)) {
     const rootMap = getRootMap(schema)
     const stacks = docs.navStack
@@ -188,6 +192,7 @@ function* renewStacks() {
       .filter(s => s)
     yield put(setStacks(session.id, stacks))
     yield put(setTracingSupported(tracingSupported))
+    yield put(setIsQueryPlanSupported(isQueryPlanSupported))
     lastSchema = schema
   }
 }

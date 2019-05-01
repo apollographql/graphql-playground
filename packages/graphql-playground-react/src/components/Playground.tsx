@@ -110,6 +110,7 @@ export interface ReduxProps {
   schemaFetchingSuccess: (
     endpoint: string,
     tracingSupported: boolean,
+    isQueryPlanSupported: boolean,
     isPollingSchema: boolean,
   ) => void
   isReloadingSchema: boolean
@@ -276,6 +277,7 @@ export class Playground extends React.PureComponent<Props & ReduxProps, State> {
           this.props.schemaFetchingSuccess(
             data.endpoint,
             schema.tracingSupported,
+            schema.isQueryPlanSupported,
             props.isPollingSchema,
           )
           this.initialSchemaFetch = false

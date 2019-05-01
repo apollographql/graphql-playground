@@ -10,6 +10,7 @@ import * as LRU from 'lru-cache'
 export interface TracingSchemaTuple {
   schema: GraphQLSchema
   tracingSupported: boolean
+  isQueryPlanSupported: boolean
 }
 
 export interface SchemaFetchProps {
@@ -73,6 +74,7 @@ export class SchemaFetcher {
     if (fetching) {
       return fetching
     }
+
     const promise = this.fetchSchema(session)
     this.fetching = this.fetching.set(hash, promise)
     return promise
@@ -108,6 +110,7 @@ export class SchemaFetcher {
     const headers = {
       ...parseHeaders(session.headers),
       'X-Apollo-Tracing': '1',
+      'Apollo-Query-Plan-Experimental': '1',
     }
 
     const options = set(session, 'headers', headers) as any
@@ -135,9 +138,15 @@ export class SchemaFetcher {
           const tracingSupported =
             (schemaData.extensions && Boolean(schemaData.extensions.tracing)) ||
             false
+
+          const isQueryPlanSupported =
+            (schemaData.extensions &&
+              Boolean(schemaData.extensions.__queryPlanExperimental)) ||
+            false
           const result: TracingSchemaTuple = {
             schema,
             tracingSupported,
+            isQueryPlanSupported,
           }
           this.sessionCache.set(this.hash(session), result)
           resolve(result)

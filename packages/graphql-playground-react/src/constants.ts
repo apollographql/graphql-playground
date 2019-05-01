@@ -149,8 +149,9 @@ export function getDefaultSession(endpoint: string) {
     editorFlex: 1,
     variableEditorOpen: false,
     variableEditorHeight: 200,
-    responseTracingOpen: false,
     responseTracingHeight: 300,
+    isExtensionsDrawerOpen: false,
+    isTracingActive: false,
     docExplorerWidth: 350,
     variableToType: Map({}),
     headers: '',
@@ -167,6 +168,7 @@ export function getDefaultSession(endpoint: string) {
     currentQueryEndTime: undefined,
     nextQueryStartTime: undefined,
     tracingSupported: undefined,
+    isQueryPlanSupported: undefined,
     changed: undefined,
     scrollTop: undefined,
   } as any

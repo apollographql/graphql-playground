@@ -75,6 +75,7 @@ These are the settings currently available:
   'schema.polling.interval': 2000, // schema polling interval in ms
   'schema.disableComments': boolean,
   'tracing.hideTracingResponse': true,
+  'queryPlan.hideQueryPlanResponse': boolean
 }
 ```
 
@@ -108,6 +109,7 @@ interface ISettings {
   'schema.polling.interval': number
   'schema.disableComments': boolean
   'tracing.hideTracingResponse': boolean
+  'queryPlan.hideQueryPlanResponse': boolean
 }
 ```
 

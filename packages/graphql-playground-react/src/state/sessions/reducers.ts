@@ -21,6 +21,7 @@ import {
   setResponseExtensions,
   setCurrentQueryStartTime,
   setCurrentQueryEndTime,
+  setIsQueryPlanSupported,
 } from './actions'
 import { getSelectedSessionId } from './selectors'
 import { getDefaultSession, defaultQuery } from '../../constants'
@@ -92,7 +93,8 @@ export class Session extends Record(getDefaultSession('')) {
   editorFlex: number
   variableEditorOpen: boolean
   variableEditorHeight: number
-  responseTracingOpen: boolean
+  isExtensionsDrawerOpen: boolean
+
   responseTracingHeight: number
   nextQueryStartTime?: Date
   tracingSupported?: boolean
@@ -200,6 +202,7 @@ const reducer = handleActions(
       setVariableEditorHeight,
       setResponseTracingHeight,
       setTracingSupported,
+      setIsQueryPlanSupported,
       setVariableToType,
       setOperations,
       setOperationName,
@@ -224,25 +227,33 @@ const reducer = handleActions(
           undefined,
         )
     },
-    CLOSE_TRACING: (state, { payload: { responseTracingHeight } }) => {
+    CLOSE_TRACING: (state /* { payload: { responseTracingHeight } } */) => {
       return state.mergeDeepIn(
         ['sessions', getSelectedSessionId(state)],
-        Map({ responseTracingHeight, responseTracingOpen: false }),
+        Map({
+          // responseTracingHeight,
+          isExtensionsDrawerOpen: true,
+          isTracingActive: false,
+        }),
+      )
+    },
+    OPEN_TRACING: (state /* { payload: { responseTracingHeight } } */) => {
+      return state.mergeDeepIn(
+        ['sessions', getSelectedSessionId(state)],
+        Map({
+          // responseTracingHeight,
+          isExtensionsDrawerOpen: true,
+          isTracingActive: true,
+        }),
       )
     },
     TOGGLE_TRACING: state => {
       const path = [
         'sessions',
         getSelectedSessionId(state),
-        'responseTracingOpen',
+        'isExtensionsDrawerOpen',
       ]
       return state.setIn(path, !state.getIn(path))
-    },
-    OPEN_TRACING: (state, { payload: { responseTracingHeight } }) => {
-      return state.mergeDeepIn(
-        ['sessions', getSelectedSessionId(state)],
-        Map({ responseTracingHeight, responseTracingOpen: true }),
-      )
     },
     CLOSE_VARIABLES: (state, { payload: { variableEditorHeight } }) => {
       return state.mergeDeepIn(

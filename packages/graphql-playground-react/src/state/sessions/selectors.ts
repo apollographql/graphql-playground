@@ -93,13 +93,19 @@ export const getVariableEditorOpen = makeSessionSelector('variableEditorOpen')
 export const getVariableEditorHeight = makeSessionSelector(
   'variableEditorHeight',
 )
-export const getResponseTracingOpen = makeSessionSelector('responseTracingOpen')
+export const getIsExtensionsDrawerOpen = makeSessionSelector(
+  'isExtensionsDrawerOpen',
+)
+export const getIsTracingActive = makeSessionSelector('isTracingActive')
 export const getResponseTracingHeight = makeSessionSelector(
   'responseTracingHeight',
 )
 export const getDocExplorerWidth = makeSessionSelector('docExplorerWidth')
 export const getNextQueryStartTime = makeSessionSelector('nextQueryStartTime')
 export const getTracingSupported = makeSessionSelector('tracingSupported')
+export const getIsQueryPlanSupported = makeSessionSelector(
+  'isQueryPlanSupported',
+)
 
 function getSettings(state) {
   return state.getIn(['settingsString'])
@@ -175,6 +181,11 @@ export function getParsedVariablesFromSession(session) {
 export const getTracing = createSelector(
   [getResponseExtensions],
   extensions => extensions && extensions.tracing,
+)
+
+export const getQueryPlan = createSelector(
+  [getResponseExtensions],
+  extensions => extensions && extensions.__queryPlanExperimental,
 )
 
 export const getSessionsArray = createSelector([getSessionsState], state => {

@@ -124,9 +124,14 @@ function* runQuerySaga(action) {
   yield put(setSubscriptionActive(isSubscription(operation)))
   yield put(startQuery())
   let headers = parseHeaders(session.headers)
-  if (session.tracingSupported && session.responseTracingOpen) {
+  if (session.tracingSupported && session.isExtensionsDrawerOpen) {
     headers = set(headers, 'X-Apollo-Tracing', '1')
   }
+
+  if (session.isQueryPlanSupported && session.isExtensionsDrawerOpen) {
+    headers = set(headers, 'Apollo-Query-Plan-Experimental', '1')
+  }
+
   const lol = {
     endpoint: session.endpoint,
     headers,
@@ -184,12 +189,24 @@ function* runQuerySaga(action) {
       const { value, error } = yield take(channel)
       if (value && value.extensions) {
         const extensions = value.extensions
+
         yield put(setResponseExtensions(extensions))
         if (
           value.extensions.tracing &&
           settings['tracing.hideTracingResponse']
         ) {
           delete value.extensions.tracing
+        }
+
+        if (
+          value.extensions.__queryPlanExperimental &&
+          settings['queryPlan.hideQueryPlanResponse']
+        ) {
+          delete value.extensions.__queryPlanExperimental
+        }
+
+        if (value.extensions && Object.keys(value.extensions).length === 0) {
+          delete value.extensions
         }
       }
       const response = new ResponseRecord({

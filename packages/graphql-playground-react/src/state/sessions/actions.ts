@@ -16,6 +16,7 @@ export const {
   setVariableEditorHeight,
   setResponseTracingHeight,
   setTracingSupported,
+  setIsQueryPlanSupported,
   closeTracing,
   openTracing,
   closeVariables,
@@ -81,6 +82,7 @@ export const {
   SET_VARIABLE_EDITOR_HEIGHT: simpleAction('variableEditorHeight'),
   SET_RESPONSE_TRACING_HEIGHT: simpleAction('responceTracingHeight'),
   SET_TRACING_SUPPORTED: simpleAction('tracingSupported'),
+  SET_IS_QUERY_PLAN_SUPPORTED: simpleAction('isQueryPlanSupported'),
   SET_SUBSCRIPTION_ACTIVE: simpleAction('subscriptionActive'),
   SET_QUERY_TYPES: simpleAction('queryTypes'),
   SET_RESPONSE_EXTENSIONS: simpleAction('responseExtensions'),
@@ -91,21 +93,22 @@ export const {
   PRETTIFY_QUERY: simpleAction(),
   INJECT_HEADERS: (headers, endpoint) => ({ headers, endpoint }),
 
-  // setting multiple props
-  /*
+  /* setting multiple props
     this.setState({
-      responseTracingOpen: false,
-      responseTracingHeight: hadHeight,
+      isExtensionsDrawerOpen: true,
+      isTracingActive: false,
     } as State)
   */
-  CLOSE_TRACING: simpleAction('responseTracingHeight'),
-  OPEN_TRACING: simpleAction('responseTracingHeight'),
-  TOGGLE_TRACING: simpleAction(),
-  // setting multiple props
-  /*
+  // Action is intentionally ignoring arguments to prevent passing around
+  // React's `SyntheticEvent`s
+  CLOSE_TRACING: () => {},
+  OPEN_TRACING: () => {},
+  TOGGLE_TRACING: () => {},
+
+  /* setting multiple props
     this.setState({
-      responseTracingOpen: false,
-      responseTracingHeight: hadHeight,
+      variableEditorHeight: hadHeight,
+      variableEditorOpen: false,
     } as State)
   */
   CLOSE_VARIABLES: simpleAction('variableEditorHeight'),
@@ -131,9 +134,15 @@ export const {
   REFETCH_SCHEMA: simpleAction(),
   SET_ENDPOINT_UNREACHABLE: simpleAction('endpoint'),
   SET_SCROLL_TOP: (sessionId, scrollTop) => ({ sessionId, scrollTop }),
-  SCHEMA_FETCHING_SUCCESS: (endpoint, tracingSupported, isPollingSchema) => ({
+  SCHEMA_FETCHING_SUCCESS: (
     endpoint,
     tracingSupported,
+    isQueryPlanSupported,
+    isPollingSchema,
+  ) => ({
+    endpoint,
+    tracingSupported,
+    isQueryPlanSupported,
     isPollingSchema,
   }),
   /*

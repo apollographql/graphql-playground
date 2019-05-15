@@ -6,9 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const HappyPack = require('happypack')
-const {
-  renderPlaygroundPage,
-} = require('@apollographql/graphql-playground-html')
+const { renderPlaygroundPage } = require('graphql-playground-html')
 
 const appEntrypoint = 'src/renderer/index.html'
 

@@ -9,7 +9,10 @@ import { connect } from 'react-redux'
 import * as format from 'date-fns/format'
 import Toggle from './Toggle'
 import { examples } from './data'
-import { getAppHistory, AppHistoryItem } from 'graphql-playground-react'
+import {
+  getAppHistory,
+  AppHistoryItem,
+} from '@apollographql/@apollographql/graphql-playground-react'
 import { createStructuredSelector, createSelector } from 'reselect'
 import { OrderedMap } from 'immutable'
 
@@ -294,7 +297,10 @@ class InitialView extends React.Component<Props & StateFromProps, State> {
   }
 }
 
-const itemsSelector = createSelector([getAppHistory], state => state.items)
+const itemsSelector = createSelector(
+  [getAppHistory],
+  state => state.items,
+)
 
 const mapStateToProps = createStructuredSelector({
   history: itemsSelector,

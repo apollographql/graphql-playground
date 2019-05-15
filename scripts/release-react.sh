@@ -18,7 +18,7 @@ middlewares=(
 
 cd graphql-playground-react
 yarn install
-echo "Releasing graphql-playground-react..."
+echo "Releasing @apollographql/graphql-playground-react..."
 yarn version --no-git-tag-version --new-version patch
 yarn publish --non-interactive
 export version=$(cat package.json | jq -r '.version')
@@ -31,8 +31,8 @@ curl -X POST \
   -H 'content-type: application/json' \
   -d '{
 	"path": [
-		"/npm/graphql-playground-react/build/static/css/middleware.css",
-		"/npm/graphql-playground-react/build/static/js/middleware.js"
+		"/npm/@apollographql/graphql-playground-react/build/static/css/middleware.css",
+		"/npm/@apollographql/graphql-playground-react/build/static/js/middleware.js"
 	]
 }'
 
@@ -49,7 +49,7 @@ curl -X POST \
 # done
 
 cd graphql-playground-electron
-echo "Updating dependency & version in graphql-playground-electron..."
-yarn add graphql-playground-react@$version
+echo "Updating dependency & version in @apollographql/graphql-playground-electron..."
+yarn add @apollographql/graphql-playground-react@$version
 yarn version --no-git-tag-version --new-version patch
 cd ..

@@ -2,7 +2,7 @@ import { Context } from 'koa'
 import {
   MiddlewareOptions,
   renderPlaygroundPage,
-} from 'graphql-playground-html'
+} from '@apollographql/graphql-playground-html'
 
 /* tslint:disable-next-line */
 

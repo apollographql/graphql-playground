@@ -7,7 +7,7 @@ const HappyPack = require('happypack')
 const os = require('os')
 const fs = require('fs')
 const UglifyJSParallelPlugin = require('webpack-uglify-parallel')
-const { renderPlaygroundPage } = require('graphql-playground-html')
+const { renderPlaygroundPage } = require('@apollographql/graphql-playground-html')
 
 const appEntrypoint = 'src/renderer/index.html'
 

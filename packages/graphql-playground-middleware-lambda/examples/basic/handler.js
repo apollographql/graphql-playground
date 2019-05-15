@@ -1,6 +1,6 @@
 // or using require()
 const { makeExecutableSchema } = require('graphql-tools')
-const lambdaPlayground = require('graphql-playground-middleware-lambda').default
+const lambdaPlayground = require('@apollographql/graphql-playground-middleware-lambda').default
 const { graphqlLambda } = require('apollo-server-lambda')
 
 const typeDefs = `

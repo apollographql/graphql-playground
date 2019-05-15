@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { remote, ipcRenderer, webFrame } from 'electron'
 import * as cx from 'classnames'
-import { Playground as IPlayground } from 'graphql-playground-react/lib/components/Playground'
+import { Playground as IPlayground } from '@apollographql/graphql-playground-react/lib/components/Playground'
 import { merge, set } from 'immutable'
 import Playground, {
   openSettingsTab,
@@ -17,7 +17,7 @@ import Playground, {
   getEndpoint,
   selectAppHistoryItem,
   AppHistoryItem,
-} from 'graphql-playground-react'
+} from '@apollographql/graphql-playground-react'
 import {
   getGraphQLConfig,
   findGraphQLConfigFile,

@@ -3,7 +3,7 @@ import {
   MiddlewareOptions,
   RenderPageOptions,
   renderPlaygroundPage,
-} from 'graphql-playground-html'
+} from '@apollographql/graphql-playground-html'
 
 export interface Register {
   (server: Server, options: MiddlewareOptions): void

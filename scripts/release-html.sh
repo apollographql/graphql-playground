@@ -17,7 +17,7 @@ middlewares=(
 )
 
 cd graphql-playground-html
-echo "Releasing graphql-playground-html..."
+echo "Releasing @apollographql/graphql-playground-html..."
 yarn version --no-git-tag-version --new-version patch
 yarn publish --non-interactive
 version=$(cat package.json | jq -r '.version')
@@ -27,7 +27,7 @@ for middleware in "${middlewares[@]}"
 do
   cd $middleware
   echo "Releasing ${middleware}..."
-  yarn add graphql-playground-html@$version
+  yarn add @apollographql/graphql-playground-html@$version
   yarn version --no-git-tag-version --new-version patch
   yarn publish --non-interactive
   cd ..

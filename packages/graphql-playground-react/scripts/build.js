@@ -21,7 +21,7 @@ var stripAnsi = require('strip-ansi');
 
 var useYarn = fs.existsSync(paths.yarnLockFile);
 
-const { renderPlaygroundPage } = require('graphql-playground-html');
+const { renderPlaygroundPage } = require('@apollographql/graphql-playground-html');
 
 // Create the playground entry point if it doesn't exist
 if(!fs.existsSync(paths.appHtml)) {

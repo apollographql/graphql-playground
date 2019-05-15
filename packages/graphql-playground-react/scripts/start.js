@@ -34,7 +34,7 @@ const createDevServerConfig = require('../config/webpackDevServer.config')
 const useYarn = fs.existsSync(paths.yarnLockFile)
 const isInteractive = process.stdout.isTTY
 
-const { renderPlaygroundPage } = require('graphql-playground-html')
+const { renderPlaygroundPage } = require('@apollographql/graphql-playground-html')
 
 // Create the playground entry point if it doesn't exist
 if (!fs.existsSync(paths.appHtml)) {

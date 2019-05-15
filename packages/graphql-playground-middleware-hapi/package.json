@@ -1,6 +1,6 @@
 {
   "name": "@apollographql/graphql-playground-middleware-hapi",
-  "version": "1.6.11",
+  "version": "1.6.13",
   "homepage": "https://github.com/graphcool/graphql-playground/tree/master/packages/graphql-playground-middleware-hapi",
   "description": "GraphQL IDE for better development workflows (GraphQL Subscriptions, interactive docs & collaboration).",
   "contributors": [
@@ -40,6 +40,6 @@
     "definition": "dist/index.d.ts"
   },
   "dependencies": {
-    "@apollographql/graphql-playground-html": "1.6.13"
+    "@apollographql/graphql-playground-html": "1.6.17"
   }
 }

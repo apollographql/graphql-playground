@@ -73,14 +73,26 @@ export interface Tab {
 
 const loading = getLoadingMarkup()
 
-const getCdnMarkup = ({ version, cdnUrl = '//cdn.jsdelivr.net/npm', faviconUrl }) => `
+const getCdnMarkup = ({
+  version,
+  cdnUrl = '//cdn.jsdelivr.net/npm/@apollographql',
+  faviconUrl,
+}) => `
     <link rel="stylesheet" href="${cdnUrl}/graphql-playground-react${
   version ? `@${version}` : ''
 }/build/static/css/index.css" />
-    ${typeof faviconUrl === 'string' ? `<link rel="shortcut icon" href="${faviconUrl}" />` : ''}
-    ${faviconUrl === undefined ? `<link rel="shortcut icon" href="${cdnUrl}/graphql-playground-react${
-      version ? `@${version}` : ''
-    }/build/favicon.png" />` : ''}
+    ${
+      typeof faviconUrl === 'string'
+        ? `<link rel="shortcut icon" href="${faviconUrl}" />`
+        : ''
+    }
+    ${
+      faviconUrl === undefined
+        ? `<link rel="shortcut icon" href="${cdnUrl}/graphql-playground-react${
+            version ? `@${version}` : ''
+          }/build/favicon.png" />`
+        : ''
+    }
     <script src="${cdnUrl}/graphql-playground-react${
   version ? `@${version}` : ''
 }/build/static/js/middleware.js"></script>

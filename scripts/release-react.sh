@@ -20,7 +20,7 @@ cd graphql-playground-react
 yarn install
 echo "Releasing @apollographql/graphql-playground-react..."
 yarn version --no-git-tag-version --new-version patch
-yarn publish --non-interactive --tag beta --access public
+yarn publish --non-interactive --access public
 export version=$(cat package.json | jq -r '.version')
 cd ..
 

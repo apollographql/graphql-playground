@@ -82,7 +82,7 @@
     "test-quick"
   ],
   "dependencies": {
-    "@apollographql/graphql-playground-html": "^1.6.0",
+    "@apollographql/graphql-playground-html": "^1.6.17",
     "@apollographql/graphql-playground-react": "1.7.24",
     "@types/ms": "^0.7.30",
     "classnames": "^2.2.5",

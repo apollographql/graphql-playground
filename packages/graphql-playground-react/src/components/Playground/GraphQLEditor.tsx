@@ -271,19 +271,16 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
                   >
                     Tracing
                   </DrawerTab>
-                  {this.props.isQueryPlanSupported && (
-                    <DrawerTab
-                      isActive={!this.props.isTracingActive}
-                      ref={this.setQueryPlanRef}
-                      onClick={this.props.closeTracing}
-                    >
-                      Query Plan
-                    </DrawerTab>
-                  )}
+                  <DrawerTab
+                    isActive={!this.props.isTracingActive}
+                    ref={this.setQueryPlanRef}
+                    onClick={this.props.closeTracing}
+                  >
+                    Query Plan
+                  </DrawerTab>
                 </ExtensionsDrawerTitle>
-                {this.props.isTracingActive ||
-                !this.props.isQueryPlanSupported ? (
-                  <ResponseTracing open={true} />
+                {this.props.isTracingActive ? (
+                  <ResponseTracing />
                 ) : (
                   <QueryPlan />
                 )}

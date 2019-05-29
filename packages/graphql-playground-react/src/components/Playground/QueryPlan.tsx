@@ -1,10 +1,14 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { styled } from '../../styled'
-import { getQueryPlan } from '../../state/sessions/selectors'
+import {
+  getQueryPlan,
+  getIsQueryPlanSupported,
+} from '../../state/sessions/selectors'
 
 export interface Props {
   value: string
+  isQueryPlanSupported: boolean
 }
 
 export class QueryPlanViewer extends React.Component<Props, {}> {
@@ -80,7 +84,22 @@ export class QueryPlanViewer extends React.Component<Props, {}> {
   }
 
   render() {
-    return <QueryPlanCodeMirror ref={this.setRef} />
+    return this.props.isQueryPlanSupported ? (
+      <QueryPlanCodeMirror ref={this.setRef} />
+    ) : (
+      <NotSupported>
+        This GraphQL server either doesn’t support federation, or the query plan
+        extension is disabled. See the following page for instructions:<br />{' '}
+        <br />
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.apollographql.com/docs/apollo-server/federation/introduction"
+        >
+          Federation Introduction
+        </a>
+      </NotSupported>
+    )
   }
 }
 
@@ -128,9 +147,13 @@ const QueryPlanCodeMirror = styled('div')`
   }
 `
 
+const NotSupported = styled.div`
+  padding: 6px 25px 0;
+  font-size: 14px;
+  color: rgba(241, 143, 1, 1);
+`
+
 export const QueryPlan = connect(state => ({
-  queryPlan: getQueryPlan(state),
-}))(
-  props =>
-    props.queryPlan ? <QueryPlanViewer value={props.queryPlan} /> : null,
-)
+  value: getQueryPlan(state),
+  isQueryPlanSupported: getIsQueryPlanSupported(state),
+}))(QueryPlanViewer)

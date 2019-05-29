@@ -66,13 +66,9 @@ const TracingRows = styled.div`
   height: calc(100% + 116px);
 `
 
-interface Props {
-  open: boolean
-}
-
-class ResponseTracing extends React.PureComponent<ReduxProps & Props> {
+class ResponseTracing extends React.PureComponent<ReduxProps> {
   render() {
-    const { tracing, tracingSupported, startTime, endTime, open } = this.props
+    const { tracing, tracingSupported, startTime, endTime } = this.props
     const requestMs =
       tracing && startTime
         ? Math.abs(new Date(tracing.startTime).getTime() - startTime.getTime())
@@ -85,7 +81,7 @@ class ResponseTracing extends React.PureComponent<ReduxProps & Props> {
 
     return (
       <TracingWrapper>
-        {tracing && open ? (
+        {tracing ? (
           <TracingRows>
             <TracingRow
               path={['Request']}
@@ -116,7 +112,14 @@ class ResponseTracing extends React.PureComponent<ReduxProps & Props> {
           <NotSupported>
             This GraphQL server doesn’t support tracing. See the following page
             for instructions:<br />
-            https://github.com/apollographql/apollo-tracing
+            <br />
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/apollographql/apollo-tracing"
+            >
+              Apollo Tracing{' '}
+            </a>
           </NotSupported>
         )}
       </TracingWrapper>

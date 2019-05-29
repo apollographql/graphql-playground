@@ -110,16 +110,15 @@ class ResponseTracing extends React.PureComponent<ReduxProps> {
           </ReRun>
         ) : (
           <NotSupported>
-            This GraphQL server doesn’t support tracing. See the following page
-            for instructions:<br />
-            <br />
+            This GraphQL server doesn’t support tracing. See the{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
               href="https://github.com/apollographql/apollo-tracing"
             >
-              Apollo Tracing{' '}
-            </a>
+              Github page
+            </a>{' '}
+            for instructions.
           </NotSupported>
         )}
       </TracingWrapper>

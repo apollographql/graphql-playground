@@ -88,16 +88,16 @@ export class QueryPlanViewer extends React.Component<Props, {}> {
       <QueryPlanCodeMirror ref={this.setRef} />
     ) : (
       <NotSupported>
-        This GraphQL server either doesn’t support federation, or the query plan
-        extension is disabled. See the following page for instructions:<br />{' '}
-        <br />
+        This GraphQL server either doesn't support Apollo Federation, or the
+        query plan extensions is disabled. See the{' '}
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.apollographql.com/docs/apollo-server/federation/introduction"
         >
-          Federation Introduction
-        </a>
+          docs
+        </a>{' '}
+        for setting up query plan viewing with Apollo Federation.
       </NotSupported>
     )
   }

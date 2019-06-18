@@ -14,6 +14,7 @@ export interface MiddlewareOptions {
 
 export type CursorShape = 'line' | 'block' | 'underline'
 export type Theme = 'dark' | 'light'
+export type RequestCredentials = 'omit' | 'include' | 'same-origin'
 
 export interface ISettings {
   'general.betaUpdates': boolean
@@ -24,7 +25,14 @@ export interface ISettings {
   'queryPlan.hideQueryPlanResponse'?: boolean
   'editor.fontSize': number
   'editor.fontFamily': string
-  'request.credentials': string
+  'request.credentials': RequestCredentials
+  'prettier.printWidth': number
+  'prettier.tabWidth': number
+  'prettier.useTabs': boolean
+  'schema.polling.enable': boolean
+  'schema.polling.endpointFilter': string
+  'schema.polling.interval': number
+  'schema.disableComments': boolean
 }
 
 export interface EditorColours {

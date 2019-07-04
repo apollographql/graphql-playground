@@ -783,7 +783,7 @@ interface DrawerTabProps {
 const DrawerTab = styled<DrawerTabProps, 'button'>('button')`
   padding: 0;
   margin-right: 10px;
-  background: #0b1924;
+  background: transparent;
 
   text-transform: uppercase;
   font-weight: 600;

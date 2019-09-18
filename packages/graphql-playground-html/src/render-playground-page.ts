@@ -60,7 +60,9 @@ export interface RenderPageOptions extends MiddlewareOptions {
   cdnUrl?: string
   env?: any
   title?: string
-  faviconUrl?: string | null
+  faviconUrl?: string | null,
+  htmlHeadAdditions?: string | null,
+  htmlBodyAdditions?: string | null
 }
 
 export interface Tab {
@@ -131,8 +133,10 @@ export function renderPlaygroundPage(options: RenderPageOptions) {
         ? ''
         : getCdnMarkup(extendedOptions)
     }
+    ${extendedOptions.htmlHeadAdditions || ''}
   </head>
   <body>
+    ${extendedOptions.htmlBodyAdditions || ''}
     <style type="text/css">
       html {
         font-family: "Open Sans", sans-serif;

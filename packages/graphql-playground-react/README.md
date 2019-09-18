@@ -73,7 +73,7 @@ The GraphQL Playground requires **React 16**.
 Including Fonts (`1.`)
 
 ```html
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Source+Code+Pro:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Source+Code+Pro:400,700&display=swap" rel="stylesheet">
 ```
 
 Including stylesheet and the component (`2., 3.`)

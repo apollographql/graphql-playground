@@ -165,7 +165,7 @@ Including Fonts (`1.`)
 
 ```html
 <link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Source+Code+Pro:400,700"
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Source+Code+Pro:400,700&display=swap"
 	rel="stylesheet"
 />
 ```
